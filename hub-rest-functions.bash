@@ -1,19 +1,40 @@
 #!/bin/bash
 
+##
+# hub-rest-bash
+#
+# Copyright (C) 2018 Black Duck Software, Inc.
+# http://www.blackducksoftware.com/
+#
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements. See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership. The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License. You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied. See the License for the
+# specific language governing permissions and limitations
+# under the License.
+##
 #
 # A collection of functions to facilitate interaction with the Hub REST API server using curl and other tools
 #
 # Will work with Hub 3.7.x and Hub 4.x
 #
-# To use these functions source this script into your shell script, e.g.
+# To use these functions source this script, e.g.
 #		source hub-rest.bash
 #
 # Then call the authenticate function to, well, authenticate and also setup the other functions to pass the
 # correct cookie and header info with each subsequent request, e.g.
 #		authenticate https://your-hub-dns-name hub-username hub-user-password
 #
-# Copyright 2017 - Black Duck Software
-# Author: Glenn Snyder
 #
 export HUB_COOKIE_FILE=/tmp/hub-cookie-$$
 export AUTH_OUTPUT=/tmp/auth-out-$$
