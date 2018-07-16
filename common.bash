@@ -112,6 +112,20 @@ function get_url_of_something_from_name()
 	echo $(${FUNCTION_NAME} "${QUERY}" | ${JQ_CMD} -r '.items | .[0]._meta.href')
 }
 
+function delete_something_using_name()
+{
+	FUNCTION_NAME=$1
+	OBJECT_NAME=$2
+
+	url=$(get_url_of_something_from_name ${FUNCTION_NAME} ${OBJECT_NAME})
+	delete_something_using_url ${url}
+}
+
+function delete_something_using_url()
+{
+	${CURL_CMD} "${CURL_ARGS[@]}" -X DELETE "$1"
+}
+
 export MAX_CONCURRENCY=8
 function delete_all_of_something()
 {
@@ -139,7 +153,7 @@ function delete_all_of_something()
 			${JQ_CMD} -r '.items | .[]._meta.href' |
 			while read url
 			do
-				${CURL_CMD} "${CURL_ARGS[@]}" -X DELETE ${url} &
+				delete_something_using_url ${url} &
 				running=$((running + 1))
 				if [ ${running} -eq ${MAX_CONCURRENCY} ]; then
 					wait

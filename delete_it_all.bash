@@ -38,6 +38,6 @@ source hub-rest-functions.bash
 authenticate $1 $2 $3
 
 echo "Uncomment the following 2 lines if you really want to delete everything. You've been warned!"
-# delete_all_projects &
-# delete_all_codelocations &
+delete_all_projects &
+delete_all_codelocations &
 wait

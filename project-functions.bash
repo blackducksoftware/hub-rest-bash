@@ -72,6 +72,24 @@ function project_version_risk_profile_json()
 	get_with_options /api/projects/${project_id}/versions/${version_id}/risk-profile
 }
 
+function create_project()
+{
+	PROJECT_NAME="$1"
+	VERSION="${2:-1.0}"
+
+	POST_ARGS=(-d "{\"name\": \"${PROJECT_NAME}\", \"versionRequest\": \
+		{\"versionName\": \"${VERSION}\", \"phase\": \"PLANNING\", \"distribution\": \"INTERNAL\"}}" --header 'Content-Type: application/json')
+	path="/api/projects"
+	post $path
+}
+
+function delete_project()
+{
+	PROJECT_NAME="$1"
+
+	delete_something_using_name projects_json "${PROJECT_NAME}"
+}
+
 function assign_user_group_to_project()
 {
 	PROJECT_NAME="$1"
