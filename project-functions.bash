@@ -42,6 +42,11 @@ function projects_json()
 	get_with_options /api/projects ${OPTIONS}	
 }
 
+function project_id_from_name()
+{
+	echo $(get_id_of_something_from_name projects_json ${1})
+}
+
 function delete_all_projects()
 {
 	delete_all_of_something projects_json projects
@@ -61,6 +66,15 @@ function project_versions_json()
 	OPTIONS="$2"
 
 	get_with_options /api/projects/${project_id}/versions
+}
+
+function project_version_components_json()
+{
+	project_id=$1
+	version_id=$2
+	OPTIONS="$3"
+
+	get_with_options /api/projects/${project_id}/versions/${version_id}/components	
 }
 
 function project_version_risk_profile_json()
