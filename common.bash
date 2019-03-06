@@ -94,6 +94,26 @@ function hub_major_version()
 	echo ${version} | ${CUT_CMD} -c1 -
 }
 
+function get_id_of_project_version_from_name()
+{
+	FUNCTION_NAME=$1
+	PROJECT_ID=$2
+	OBJECT_NAME=$3
+	QUERY=${3:-q=versionName:${OBJECT_NAME}} # override this when the query doesn't conform to the syntax shown here
+
+	echo $(${BASENAME_CMD} $(get_url_of_project_version_from_name ${FUNCTION_NAME} ${PROJECT_ID} ${QUERY}))
+}
+
+function get_url_of_project_version_from_name()
+{
+	FUNCTION_NAME=$1
+	PROJECT_ID=$2
+	OBJECT_NAME=$3
+	QUERY=${3:-q=versionName:${OBJECT_NAME}} # override this when the query doesn't conform to the syntax shown here
+
+	echo $(${FUNCTION_NAME} "${PROJECT_ID}" "${QUERY}" | ${JQ_CMD} -r '.items | .[0]._meta.href')
+}
+
 function get_id_of_something_from_name()
 {
 	FUNCTION_NAME=$1
