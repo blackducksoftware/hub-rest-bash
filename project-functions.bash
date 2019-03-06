@@ -47,6 +47,11 @@ function project_id_from_name()
 	echo $(get_id_of_something_from_name projects_json ${1})
 }
 
+function version_id_from_project()
+{
+	echo $(get_id_of_project_version_from_name project_versions_json ${1} ${2})
+}
+
 function delete_all_projects()
 {
 	delete_all_of_something projects_json projects
@@ -65,7 +70,7 @@ function project_versions_json()
 	project_id=$1
 	OPTIONS="$2"
 
-	get_with_options /api/projects/${project_id}/versions
+	get_with_options /api/projects/${project_id}/versions ${OPTIONS}
 }
 
 function project_version_components_json()
@@ -75,6 +80,15 @@ function project_version_components_json()
 	OPTIONS="$3"
 
 	get_with_options /api/projects/${project_id}/versions/${version_id}/components	
+}
+
+function project_version_policy_status_json()
+{
+	project_id=$1
+	version_id=$2
+	OPTIONS="$3"
+
+	get_with_options /api/projects/${project_id}/versions/${version_id}/policy-status
 }
 
 function project_version_risk_profile_json()
